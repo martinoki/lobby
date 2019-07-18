@@ -7,10 +7,16 @@ class PageUsers extends Component {
     history.push("/");
   }
 
+  
+
+  componentDidMount(){
+    console.log("props: ", this.props.match.params.id)
+  }
+
   render() {
     return (
       <React.Fragment>
-        <h1>Users</h1>
+        <h1>JUEGOOO</h1>
         <button type="button" onClick={() => this.gotoBack()}>
           Back
         </button>

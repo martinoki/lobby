@@ -12,17 +12,13 @@ router.post("/login", async function(req, res, next) {
   if (!username) {
     res.status(400).send({ error: "Ingrese el nombre de usuario." });
   } else {
-    try {
-      const user = await User.find({ username });
-      if (!user.length) {
-        const newUser = User({ username });
-        newUser.save();
-        res.send(newUser);
-      } else {
-        res.send(user);
-      }
-    } catch (e) {
-      console.log("ERROR: ", e);
+    const user = await User.findOne({ username });
+    if (!user) {
+      const newUser = User({ username });
+      newUser.save();
+      res.send(newUser);
+    } else {
+      res.send(user);
     }
   }
 });

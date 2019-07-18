@@ -25,6 +25,6 @@ app.use(cookieParser());
 
 app.use("/api/user", usersRouter);
 app.use("/api/lobby", lobbyRouter);
-app.use("/api/game", gamesRouter);
+app.use("/api/games", gamesRouter);
 
 module.exports = app;

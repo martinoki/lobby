@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { Router, Route, Switch } from "react-router-dom";
-
 import history from "./utils/history";
-import PageHome from "./pages/home";
-import PageUsers from "./pages/users";
-import PagePosts from "./pages/posts";
+import PageLogin from "./pages/login";
+import PageGame from "./pages/game";
+import PageLobby from "./pages/lobby";
 
 class App extends Component {
   render() {
@@ -12,9 +11,9 @@ class App extends Component {
       <React.Fragment>
         <Router history={history}>
           <Switch>
-            <Route exact path="/" component={PageHome} />
-            <Route exact path="/users" component={PageUsers} />
-            <Route exact path="/posts" component={PagePosts} />
+            <Route exact path="/" component={PageLogin} />
+            <Route exact path="/game/:id" component={PageGame} />
+            <Route exact path="/lobby" component={PageLobby} />
           </Switch>
         </Router>
       </React.Fragment>
