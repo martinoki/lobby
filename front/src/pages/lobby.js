@@ -14,12 +14,9 @@ class PageLobby extends Component {
 
   createOrJoinGame = roomId => {
     const userId = localStorage.getItem("userId");
-    console.log("roomId: ", roomId);
     axios
       .post("/games/" + roomId, {}, { headers: { Authorization: userId } })
       .then(response => {
-        // this.getGames();
-        console.log("Response: ", response);
         history.push("/game/" + response.data._id);
       })
       .catch(err => {
@@ -31,7 +28,6 @@ class PageLobby extends Component {
     axios
       .get("games", { headers: { Authorization: userId } })
       .then(response => {
-        // console.log("Response: ", response.data);
         this.setState({ games: response.data });
       })
       .catch(error => {
@@ -53,7 +49,6 @@ class PageLobby extends Component {
   };
 
   logout = () => {
-    console.log("ACA");
     localStorage.removeItem("userId");
     history.push("/");
   };

@@ -213,7 +213,6 @@ class PageUsers extends Component {
       return;
     } else {
       let player = game.data.createdBy === userId ? blue : red;
-      console.log("player: ", player);
       this.setState({
         board: game.data.data,
         turn: game.data.turn,
@@ -242,12 +241,6 @@ class PageUsers extends Component {
     if (!game) {
       history.push("/lobby");
     } else {
-      console.log("gameupdate: ", game);
-      // this.
-      // let turn =
-      //   game.data.turn === game.data.player1
-      //     ? game.data.player2
-      //     : game.data.player1;
       this.setState({ turn: game.data.turn });
     }
   };
