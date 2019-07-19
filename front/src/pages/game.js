@@ -24,7 +24,8 @@ class PageUsers extends Component {
       turn: null,
       refresh: null,
       showConfirm: false,
-      createdBy: null
+      createdBy: null,
+      player: null
     };
   }
 
@@ -125,7 +126,7 @@ class PageUsers extends Component {
       }
       if (count === 4) {
         let interval = this.state.refresh;
-        clearInterval(interval)
+        clearInterval(interval);
         this.setState({
           winner: this.state.board[initRow][initCol],
           showModal: true,
@@ -140,8 +141,6 @@ class PageUsers extends Component {
 
   handleClick = (row, col) => {
     const userId = localStorage.getItem("userId");
-    console.log(this.state.turn);
-    console.log(userId);
     if (
       !this.state.disabledClick &&
       this.state.board[0][col] === 0 &&
@@ -213,10 +212,13 @@ class PageUsers extends Component {
       history.replace("/lobby");
       return;
     } else {
+      let player = game.data.createdBy === userId ? blue : red;
+      console.log("player: ", player)
       this.setState({
         board: game.data.data,
         turn: game.data.turn,
-        createdBy: game.data.createdBy
+        createdBy: game.data.createdBy,
+        player
       });
     }
     if (game.data.lastRow != null && game.data.lastCol != null) {
@@ -283,16 +285,42 @@ class PageUsers extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="">
-          <button className="exitButton" onClick={this.exitGame}>
-            Salir del Juego
-          </button>
-          {!this.state.board || this.state.board.length === 0 ? <h2>Esperando Jugador 2...</h2> : null}
-          <Grid
-            handleClick={this.handleClick}
-            cases={this.state.cases}
-            board={this.state.board}
-          />
+        <div className="" style={{display: 'flex'}}>
+            {this.state.player ? (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  flexDirection: "column"
+                }}
+              >
+                <button className="exitButton" onClick={this.exitGame}>
+                  Salir del Juego
+                </button>
+                <div style={{ flex: "0px" }} />
+                <div style={{ flex: "0px" }}>
+                  <h3>Jugador: </h3>
+                  <img className="turn" src={this.state.player} />
+                </div>
+                <div style={{ flex: "0px" }}>
+                  <h3>Turno: </h3>
+                  <img
+                    className="turn"
+                    src={this.state.createdBy === this.state.turn ? blue : red}
+                  />
+                </div>
+              </div>
+            ) : null}
+          {!this.state.board || this.state.board.length === 0 ? (
+            <h2>Esperando Jugador 2...</h2>
+          ) : null}
+          <div style={{ display: "flex" }}>
+            <Grid
+              handleClick={this.handleClick}
+              cases={this.state.cases}
+              board={this.state.board}
+            />
+          </div>
           {this.state.showModal || this.state.freeSpaces === 0 ? (
             <Modal
               winner={this.state.cases[this.state.winner]}

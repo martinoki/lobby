@@ -18,3 +18,8 @@
 .exitButton:hover {
     background-color: #ff1d1d9b;
 }
+
+.turn{
+    height: 50px;
+    width: 50px;
+}
