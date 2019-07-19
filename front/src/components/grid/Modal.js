@@ -17,7 +17,7 @@ const Modal = props => (
       <div>
           <br/>
         <button className="button" onClick={props.resetGame}>
-          Reiniciar Juego
+          Salir
         </button>
       </div>
     </div>

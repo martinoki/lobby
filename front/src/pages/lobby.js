@@ -101,14 +101,14 @@ class PageLobby extends Component {
                   Sala {index + 1}
                   {userId !== game.createdBy &&
                   (!game.player1 || !game.player2) ? (
-                    <button onClick={() => this.createOrJoinGame(game._id)}>
+                    <button className="joinButton" onClick={() => this.createOrJoinGame(game._id)}>
                       Unirse
                     </button>
                   ) : (
-                    <span> (SALA LLENA)</span>
+                    <span className="fullRoom"> (SALA LLENA)</span>
                   )}
                   {userId === game.createdBy ? (
-                    <button onClick={() => this.deleteGame(game)}>
+                    <button className="deleteButton" onClick={() => this.deleteGame(game)}>
                       Eliminar Sala
                     </button>
                   ) : null}

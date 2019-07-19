@@ -1,45 +1,95 @@
-.title{
-    text-align: center;
+.title {
+  text-align: center;
 }
 
 .createButton {
-    cursor: pointer;
-    border-radius: 5px;
-    color: #fff!important;
-    font-size: 12px;
-    letter-spacing: 2px;
-    padding: 9px 18px;
-    position: relative;
-    text-transform: uppercase;
-    top: -3px;
-    margin-bottom: 10px;
-    opacity: .75;
-    line-height: 20px;
-    background-color: #005fee;
-    display: inline-block;
+  cursor: pointer;
+  border-radius: 5px;
+  color: #fff !important;
+  font-size: 12px;
+  letter-spacing: 2px;
+  padding: 9px 18px;
+  position: relative;
+  text-transform: uppercase;
+  top: -3px;
+  margin-bottom: 10px;
+  opacity: 0.75;
+  line-height: 20px;
+  background-color: #005fee;
+  display: inline-block;
 }
 
 .createButton:hover {
-    background-color: #002fff9b;
+  background-color: #002fff9b;
 }
 
 .logoutButton {
+  cursor: pointer;
+  border-radius: 5px;
+  color: #fff !important;
+  font-size: 12px;
+  letter-spacing: 2px;
+  padding: 9px 18px;
+  position: relative;
+  text-transform: uppercase;
+  top: -3px;
+  margin-bottom: 10px;
+  opacity: 0.75;
+  line-height: 20px;
+  background-color: #ff0000;
+  display: inline-block;
+}
+
+.logoutButton:hover {
+  background-color: #ff1d1d9b;
+}
+
+.joinButton {
+  margin-left: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  color: #fff !important;
+  font-size: 12px;
+  letter-spacing: 2px;
+  padding: 4px 12px;
+  position: relative;
+  text-transform: uppercase;
+  top: -3px;
+  margin-bottom: 10px;
+  opacity: 0.75;
+  line-height: 20px;
+  background-color: #005fee;
+  display: inline-block;
+}
+
+.joinButton:hover {
+  margin-left: 5px;
+  background-color: #002fff9b;
+}
+
+.deleteButton {
+    margin-left: 5px;
     cursor: pointer;
     border-radius: 5px;
-    color: #fff!important;
+    color: #fff !important;
     font-size: 12px;
     letter-spacing: 2px;
-    padding: 9px 18px;
+    padding: 4px 12px;
     position: relative;
     text-transform: uppercase;
     top: -3px;
     margin-bottom: 10px;
-    opacity: .75;
+    opacity: 0.75;
     line-height: 20px;
     background-color: #ff0000;
     display: inline-block;
-}
-
-.logoutButton:hover {
+  }
+  
+  .deleteButton:hover {
+    margin-left: 5px;
     background-color: #ff1d1d9b;
+  }
+
+.fullRoom {
+  color: red;
 }
