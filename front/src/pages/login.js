@@ -3,6 +3,8 @@ import axios from "../axios";
 
 import history from "../utils/history";
 
+import "./login.css";
+
 class PageHome extends Component {
   state = {
     username: null,
@@ -42,7 +44,12 @@ class PageHome extends Component {
         this.gotoLobby();
       })
       .catch(err => {
-        this.setState({ error: err.response.data.error });
+        if(err.response){
+          this.setState({ error: err.response.data.error });
+        }else{
+          // this.setState({error: "Error al conectar: "})
+          this.setState({error: JSON.stringify(err)})
+        }
       });
   };
 
@@ -62,13 +69,26 @@ class PageHome extends Component {
             </button>
           </li>
         </ul> */}
-        <input
-          placeholder="Nombre de Usuario"
-          value={this.state.name}
-          onChange={this.onChange}
-        />
-        <button onClick={this.login}>Login</button>
-        {this.state.error ? <p>{this.state.error}</p> : null}
+        <div className="modal">
+          <div className="container">
+            <div>
+              <h2>Bienvenido!</h2>
+              <input
+                className="input"
+                placeholder="Nombre de Usuario"
+                value={this.state.name}
+                onChange={this.onChange}
+              />
+            </div>
+            <br/>
+            <div>
+              <button className="loginButton" onClick={this.login}>
+                Login
+              </button>
+            </div>
+            {this.state.error ? <p className="error">{this.state.error}</p> : null}
+          </div>
+        </div>
       </React.Fragment>
     );
   }

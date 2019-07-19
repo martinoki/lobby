@@ -1,0 +1,62 @@
+.modal {
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  transition: all 0.5s;
+}
+
+.container {
+  width: 60%;
+  height: 40%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  font-size: 1.5em;
+  text-align: center;
+  -webkit-animation-name: modal; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 3s; /* Safari 4.0 - 8.0 */
+  animation-name: modal;
+  animation-duration: 3s;
+}
+
+.input {
+  box-shadow: 11px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.input:hover {
+    box-shadow: 11px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  }
+
+.loginButton {
+    cursor: pointer;
+    border-radius: 5px;
+    color: #fff!important;
+    font-size: 12px;
+    letter-spacing: 2px;
+    padding: 9px 18px;
+    position: relative;
+    text-transform: uppercase;
+    top: -3px;
+    margin-bottom: 10px;
+    opacity: .75;
+    line-height: 20px;
+    background-color: #003775;
+    display: inline-block;
+}
+
+.loginButton:hover {
+    background-color: #0062d19b;
+}
+
+.error{
+    color: red;
+}

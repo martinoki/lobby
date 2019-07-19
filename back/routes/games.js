@@ -33,13 +33,26 @@ router.post("/:id_room", middleware.isValidUser, async function(
 ) {
   const user = req.headers.authorization;
   if (req.params.id_room == 0) {
-    const newGame = await Game({ player1: user, createdBy: user });
+    const newGame = await Game({
+      player1: user,
+      createdBy: user,
+      turn: user,
+      lastRow: null,
+      lastCol: null
+    });
     newGame.save();
     res.send(newGame);
   } else {
     const game = await Game.findById(req.params.id_room);
     if (game) {
-      const joinGame = await Game({ player2: user });
+      let data = new Array(6)
+        .fill(0)
+        .map(i => new Array(7).fill(0).map(j => 0));
+      const joinGame = await Game.findOneAndUpdate(
+        { _id: req.params.id_room },
+        { player2: user, data },
+        { new: true }
+      );
       res.send(joinGame);
     } else {
       res.status(400).send({ error: "La sala no existe" });
@@ -49,19 +62,21 @@ router.post("/:id_room", middleware.isValidUser, async function(
 
 //Actualizo la data de la partida
 router.put("/:id_room", middleware.isValidUser, async function(req, res, next) {
-  const game = await Game.findById(req.params.id_room);
-  const user = req.headers.authorization;
+  let game = await Game.findById(req.params.id_room);
+  let user = req.headers.authorization;
 
   if (!game) {
+    res.status(400).send({ error: "La sala no existe" }); //Bad Request
   } else {
-  }
-
-  if (req.params.id_room == 0) {
-    const newGame = Game({ player1: user, createdBy: user });
-    newGame.save();
-    res.send(newGame);
-  } else {
-    const game = await Game.findById(req.params.id_room);
+    if (user == game.player1) {
+      game.turn = game.player2;
+    } else {
+      game.turn = game.player1;
+    }
+    game.data = req.body.data;
+    game.lastRow = req.body.lastRow;
+    game.lastCol = req.body.lastCol;
+    game.save();
     res.send(game);
   }
 });
@@ -77,16 +92,8 @@ router.delete("/:id_room", middleware.isValidUser, async function(
   if (!game) {
     res.status(400).send({ error: "La sala no existe" }); //Bad Request
   } else {
-    console.log("ACA");
-    if (game.createdBy == user) {
-      const deleted = await Game.findByIdAndDelete(req.params.id_room);
-      res.send(deleted);
-    } else {
-      console.log(game.createdBy, user);
-      res
-        .status(401) //Unauthorized
-        .send({ error: "No tiene permisos para eliminar la sala" });
-    }
+    const deleted = await Game.findByIdAndDelete(req.params.id_room);
+    res.send(deleted);
   }
 });
 

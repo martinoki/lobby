@@ -1,0 +1,20 @@
+.exitButton {
+    cursor: pointer;
+    border-radius: 5px;
+    color: #fff!important;
+    font-size: 12px;
+    letter-spacing: 2px;
+    padding: 9px 18px;
+    position: relative;
+    text-transform: uppercase;
+    top: -3px;
+    margin-bottom: 10px;
+    opacity: .75;
+    line-height: 20px;
+    background-color: #950b0b;
+    display: inline-block;
+}
+
+.exitButton:hover {
+    background-color: #ff1d1d9b;
+}

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "../axios";
 import history from "../utils/history";
+import "./lobby.css";
 
 class PageLobby extends Component {
   state = {
@@ -13,10 +14,12 @@ class PageLobby extends Component {
 
   createOrJoinGame = roomId => {
     const userId = localStorage.getItem("userId");
+    console.log("roomId: ", roomId);
     axios
       .post("/games/" + roomId, {}, { headers: { Authorization: userId } })
       .then(response => {
-        this.getGames();
+        // this.getGames();
+        console.log("Response: ", response);
         history.push("/game/" + response.data._id);
       })
       .catch(err => {
@@ -28,7 +31,7 @@ class PageLobby extends Component {
     axios
       .get("games", { headers: { Authorization: userId } })
       .then(response => {
-        console.log("Response: ", response.data);
+        // console.log("Response: ", response.data);
         this.setState({ games: response.data });
       })
       .catch(error => {
@@ -49,6 +52,12 @@ class PageLobby extends Component {
       });
   };
 
+  logout = () => {
+    console.log("ACA");
+    localStorage.removeItem("userId");
+    history.push("/");
+  };
+
   componentDidMount() {
     const userId = localStorage.getItem("userId");
     if (!userId) {
@@ -59,15 +68,14 @@ class PageLobby extends Component {
       const interval = setInterval(() => {
         this.getGames(userId);
       }, 3000);
-      this.setState({refresh: interval})
+      this.setState({ refresh: interval });
     }
   }
 
-  componentWillUnmount(){
-    console.log("UNMONUNT");
+  componentWillUnmount() {
     let refresh = this.state.refresh;
     clearInterval(refresh);
-    this.setState({refresh: null});
+    this.setState({ refresh: null });
   }
 
   render() {
@@ -78,21 +86,28 @@ class PageLobby extends Component {
         <button type="button" onClick={() => this.gotoBack()}>
           Back
         </button> */}
-        <h1>MIS JUEGOS!</h1>
-        <button onClick={() => this.createOrJoinGame(0)}>Crear Juego</button>
+        <div style={{ display: "flex" }}>
+          <button className="createButton" onClick={() => this.createOrJoinGame(0)}>+ Crear Juego</button>
+          <button className="logoutButton" onClick={this.logout}>Cerrar Sesión</button>
+        </div>
+        <div>
+          <h1 className="title">Salas</h1>
+        </div>
         <div>
           {this.state.games.map((game, index) => {
             return (
               <div key={index}>
                 <p>
-                  Juego {index + 1}
+                  Sala {index + 1}
                   {userId !== game.createdBy &&
                   (!game.player1 || !game.player2) ? (
                     <button onClick={() => this.createOrJoinGame(game._id)}>
                       Unirse
                     </button>
-                  ) : null}
-                  {userId == game.createdBy ? (
+                  ) : (
+                    <span> (SALA LLENA)</span>
+                  )}
+                  {userId === game.createdBy ? (
                     <button onClick={() => this.deleteGame(game)}>
                       Eliminar Sala
                     </button>

@@ -18,7 +18,13 @@ const gameSchema = new Schema({
   createdBy: {
     type: Schema.ObjectId,
     ref: "User"
-  }
+  },
+  turn: {
+    type: Schema.ObjectId,
+    ref: "User"
+  },
+  lastRow:  Number,
+  lastCol: Number
 });
 
 const Game = mongoose.model("Game", gameSchema);

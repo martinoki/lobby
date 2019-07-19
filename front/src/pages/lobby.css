@@ -1,0 +1,45 @@
+.title{
+    text-align: center;
+}
+
+.createButton {
+    cursor: pointer;
+    border-radius: 5px;
+    color: #fff!important;
+    font-size: 12px;
+    letter-spacing: 2px;
+    padding: 9px 18px;
+    position: relative;
+    text-transform: uppercase;
+    top: -3px;
+    margin-bottom: 10px;
+    opacity: .75;
+    line-height: 20px;
+    background-color: #005fee;
+    display: inline-block;
+}
+
+.createButton:hover {
+    background-color: #002fff9b;
+}
+
+.logoutButton {
+    cursor: pointer;
+    border-radius: 5px;
+    color: #fff!important;
+    font-size: 12px;
+    letter-spacing: 2px;
+    padding: 9px 18px;
+    position: relative;
+    text-transform: uppercase;
+    top: -3px;
+    margin-bottom: 10px;
+    opacity: .75;
+    line-height: 20px;
+    background-color: #ff0000;
+    display: inline-block;
+}
+
+.logoutButton:hover {
+    background-color: #ff1d1d9b;
+}
