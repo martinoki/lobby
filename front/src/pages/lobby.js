@@ -62,7 +62,7 @@ class PageLobby extends Component {
 
       const interval = setInterval(() => {
         this.getGames(userId);
-      }, 3000);
+      }, 1000);
       this.setState({ refresh: interval });
     }
   }

@@ -253,7 +253,7 @@ class PageUsers extends Component {
     this.getData();
     let interval = setInterval(() => {
       this.getData();
-    }, 3000);
+    }, 1000);
     this.setState({ refresh: interval });
   }
 
