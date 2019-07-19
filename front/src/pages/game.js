@@ -213,7 +213,7 @@ class PageUsers extends Component {
       return;
     } else {
       let player = game.data.createdBy === userId ? blue : red;
-      console.log("player: ", player)
+      console.log("player: ", player);
       this.setState({
         board: game.data.data,
         turn: game.data.turn,
@@ -285,35 +285,37 @@ class PageUsers extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="" style={{display: 'flex'}}>
-            {this.state.player ? (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column"
-                }}
-              >
-                <button className="exitButton" onClick={this.exitGame}>
-                  Salir del Juego
-                </button>
-                <div style={{ flex: "0px" }} />
+        <div className="" style={{ display: "flex" }}>
+          {this.state.player ? (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column"
+              }}
+            >
+              <button className="exitButton" onClick={this.exitGame}>
+                Salir del Juego
+              </button>
+              {!this.state.board || this.state.board.length === 0 ? (
                 <div style={{ flex: "0px" }}>
-                  <h3>Jugador: </h3>
-                  <img className="turn" src={this.state.player} />
+                  <h2>Esperando Jugador 2...</h2>
                 </div>
-                <div style={{ flex: "0px" }}>
-                  <h3>Turno: </h3>
-                  <img
-                    className="turn"
-                    src={this.state.createdBy === this.state.turn ? blue : red}
-                  />
-                </div>
+              ) : null}
+              <div style={{ flex: "0px" }}>
+                <h3>Jugador: </h3>
+                <img className="turn" src={this.state.player} />
               </div>
-            ) : null}
-          {!this.state.board || this.state.board.length === 0 ? (
-            <h2>Esperando Jugador 2...</h2>
+              <div style={{ flex: "0px" }}>
+                <h3>Turno: </h3>
+                <img
+                  className="turn"
+                  src={this.state.createdBy === this.state.turn ? blue : red}
+                />
+              </div>
+            </div>
           ) : null}
+
           <div style={{ display: "flex" }}>
             <Grid
               handleClick={this.handleClick}
