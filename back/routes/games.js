@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Game = require("../models/game");
 const middleware = require("../middleware/authentication");
+// const io = require("../app");
+const webSocket = require("../webSocket");
 
 router.get("/", async function(req, res, next) {
   const games = await Game.find({});

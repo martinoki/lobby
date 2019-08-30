@@ -3,26 +3,27 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const app = express();
+const cors = require("cors");
+app.use(cors());
+const webSocket = require("./webSocket");
 // const http = require("http");
 // const server = http.createServer(app);
 // const socketio = require("socket.io");
-var cors = require('cors');
-app.use(cors());
-// const io = socketio(server);
-// io.on("connection", (socket) => {
-//   console.log("new websocket connection")
-//   // socket.emit('countUpdated')
-//   socket.on('greet', function(data) {
+// const io = socketio(server).listen(3001);
+// // const webSocket;
+// io.on("connection", socket => {
+//   console.log("new websocket connection");
+//   console.log("Socket: ", socket);
+
+//   socket.on("greet", function(data) {
 //     console.log(data);
-//     socket.emit('respond', { hello: 'Hey, Mr.Client!' });
+//     socket.emit("respond", { hello: "Hey, Mr.Client!" });
 //   });
-//   socket.on('disconnect', function() {
-//     console.log('Socket disconnected');
+
+//   socket.on("disconnect", function() {
+//     console.log("Socket disconnected");
 //   });
 // });
-
-// server.listen(3002, () => console.log(`Listening on port 3002`));
-
 
 mongoose
   .connect("mongodb://mongo/games", { useNewUrlParser: true })
@@ -47,3 +48,4 @@ app.use("/api/lobby", lobbyRouter);
 app.use("/api/games", gamesRouter);
 
 module.exports = app;
+// exports.io = webSocket;

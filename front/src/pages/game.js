@@ -9,6 +9,7 @@ import red from "../assets/fichaRoja.png";
 import axios from "../axios";
 import Confirm from "../components/confirmModal/Confirm";
 import "./game.css";
+import webSocket from "../webSocket";
 
 class PageUsers extends Component {
   constructor(props) {
@@ -212,6 +213,7 @@ class PageUsers extends Component {
       history.replace("/lobby");
       return;
     } else {
+      webSocket.emit('joinRoom', roomId);
       let player = game.data.createdBy === userId ? blue : red;
       this.setState({
         board: game.data.data,
@@ -242,6 +244,12 @@ class PageUsers extends Component {
       history.push("/lobby");
     } else {
       this.setState({ turn: game.data.turn });
+      webSocket.emit("playerMovement", {
+        room: roomId,
+        player: userId,
+        lastRow: row,
+        lastCol: col
+      });
     }
   };
 
@@ -251,19 +259,39 @@ class PageUsers extends Component {
 
   async componentDidMount() {
     this.getData();
-    let interval = setInterval(() => {
+    // let interval = setInterval(() => {
+    //   this.getData();
+    // }, 1000);
+    // this.setState({ refresh: interval });
+    // const roomId = this.props.match.params.id;
+    webSocket.on("joinRoom", () => {
+      // if(window.location.pathname === "/game"){
+      // this.getGames(userId);
       this.getData();
-    }, 1000);
-    this.setState({ refresh: interval });
+      // }
+    });
+
+    webSocket.on("playerMovement", (data) => {
+      console.log("Data: ", data)
+      // if(window.location.pathname === "/game"){
+      // this.getGames(userId);
+      this.getData();
+      // }
+    });
   }
 
   okClick = async () => {
     const roomId = this.props.match.params.id;
     const userId = localStorage.getItem("userId");
-    axios.delete("games/" + roomId, {
-      headers: { Authorization: userId }
-    });
-    history.replace("/lobby");
+    axios
+      .delete("games/" + roomId, {
+        headers: { Authorization: userId }
+      })
+      .then(response => {
+        webSocket.emit("refreshGame",{})
+        webSocket.emit("exitGame")
+        history.replace("/lobby");
+      });
   };
 
   cancelClick = () => {
@@ -297,11 +325,12 @@ class PageUsers extends Component {
               ) : null}
               <div style={{ flex: "0px" }}>
                 <h3>Jugador: </h3>
-                <img className="turn" src={this.state.player} />
+                <img alt="player" className="turn" src={this.state.player} />
               </div>
               <div style={{ flex: "0px" }}>
                 <h3>Turno: </h3>
                 <img
+                  alt="turn"
                   className="turn"
                   src={this.state.createdBy === this.state.turn ? blue : red}
                 />

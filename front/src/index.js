@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./scss/style.scss";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+// import webSocket from "../src/webSocket";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
